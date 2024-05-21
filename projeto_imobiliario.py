@@ -34,3 +34,16 @@ imoveis_comerciais = [
 ]
 
 df = dados.query('@imoveis_comerciais not in Tipo')
+df.Tipo.unique()
+
+df_preco_tipo = df.groupby('Tipo')[['Valor']].mean().sort_values("Valor")
+df_preco_tipo.plot(kind='barh', figsize=(14, 10))
+
+# Qual o percentual de cada tipo de imóvel na nossa base de dados?
+
+df_percentual_tipo = df.Tipo.value_counts(normalize=True).to_frame().sort_values('proportion')
+df_percentual_tipo.plot(kind='bar', figsize=(14, 10), color='green',
+                        xlabel='Tipos', ylabel='Percentual')
+
+#selecionando apenas os imíveis do tipo apartamento
+df = df.query('Tipo == "Apartamento"')
