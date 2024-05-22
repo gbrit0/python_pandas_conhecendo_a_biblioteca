@@ -47,3 +47,13 @@ df_percentual_tipo.plot(kind='bar', figsize=(14, 10), color='green',
 
 #selecionando apenas os imíveis do tipo apartamento
 df = df.query('Tipo == "Apartamento"')
+
+# Tratando os valores nulos
+
+df.isnull().sum()
+
+df = df.fillna(0) 
+
+# Removendo registros
+registros_a_remover = df.query('Valor == 0 | Condominio == 0').index
+df.drop(registros_a_remover, axis=0, inplace=True)
