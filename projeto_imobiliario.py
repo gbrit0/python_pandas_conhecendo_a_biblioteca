@@ -57,3 +57,30 @@ df = df.fillna(0)
 # Removendo registros
 registros_a_remover = df.query('Valor == 0 | Condominio == 0').index
 df.drop(registros_a_remover, axis=0, inplace=True)
+
+# Aplicando filtros
+
+# apartamentos que possuem 1 quarto e aluguel < 1200
+selecao1 = df.Quartos == 1
+df[selecao1]
+
+selecao2 = df.Valor < 1200
+df[selecao2]
+
+selecao_final = (selecao1) & (selecao2)
+df_1 = df[selecao_final]
+
+# Apartamentos com 2 quartos, aluguel < 3000 e área > 70
+selecao = (df.Quartos >= 2) & (df.Valor < 3000) & (df.Area > 70)
+df_2 = df[selecao]
+
+# Salvando os dados
+df.to_csv('dados_apartamentos.csv', index=False, sep=';')
+
+pd.read_csv('dados_apartamentos.csv', sep=';')
+
+df_1.to_csv('df_1.csv', sep=';')
+pd.read_csv('df_1.csv', sep=';')
+
+df_2.to_csv('df_2.csv', sep=';')
+pd.read_csv('df_2.csv', sep=';')
